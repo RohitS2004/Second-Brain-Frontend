@@ -1,8 +1,14 @@
+import { Outlet } from "react-router-dom";
+
 function App() {
 
   return (
-    <div>
+    <div className="max-w-full min-h-screen">
+      <main className="">
+        <Outlet>
 
+        </Outlet>
+      </main>
     </div>
   )
 }

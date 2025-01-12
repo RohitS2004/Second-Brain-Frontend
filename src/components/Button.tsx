@@ -4,7 +4,7 @@ type backgroundColorTypes = "transparent" | "slate" | "primary" | "secondary" | 
 type fontColorTypes = "black" | "white" | "primary" | "secondary"
 type fontSizeTypes = "md" | "lg" | "xl" | "2xl" | "3xl";
 type fontWeightTypes = "normal" | "semibold" | "bold" | "extrabold";
-type borderRadiusTypes = "sm" | "md" | "lg" | "xl" | "2xl";
+type borderRadiusTypes = "sm" | "md" | "lg" | "xl" | "2xl" | "none";
 
 interface ButtonProps {
     buttonIcon?: ReactElement,
@@ -22,6 +22,7 @@ interface ButtonProps {
     fontSize: fontSizeTypes,
     fontWeight: fontWeightTypes,
     onClick: () => void,
+    buttonClasses?: string,
 }
 
 const BackgroundColor = {
@@ -29,7 +30,7 @@ const BackgroundColor = {
     slate: "bg-slate",
     primary: "bg-primary",
     secondary: "bg-secondary",
-    gradient: "bg-gradient-to-r from-primary to-secondary",
+    gradient: "bg-gradient-to-r from-gradientFrom to-gradientTo",
 }
 
 const FontColor = {
@@ -60,6 +61,7 @@ const BorderRadius = {
     lg: "rounded-lg",
     xl: "rounded-xl",
     "2xl": "rounded-2xl",
+    "none": "",
 }
 
 const Button = (props: ButtonProps) => {
@@ -73,7 +75,7 @@ const Button = (props: ButtonProps) => {
             ${props.onActiveClasses}
             ${props.flexProperties}
             ${props.classes}
-            ${BorderRadius[props.borderRadius || "md"]}
+            ${BorderRadius[props.borderRadius || "none"]}
             ${BackgroundColor[props.backgroundColor]}
             ${FontColor[props.fontColor || "black"]}
             ${FontSize[props.fontSize]}
@@ -82,7 +84,7 @@ const Button = (props: ButtonProps) => {
         onClick={props.onClick}
         >
             {props.buttonIcon && props.buttonIcon}
-            <span>{props.buttonText && props.buttonText}</span>
+            <span className={`${props.buttonClasses}`}>{props.buttonText && props.buttonText}</span>
         </button>
     )
 }
