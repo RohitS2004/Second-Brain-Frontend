@@ -21,7 +21,7 @@ interface ButtonProps {
     fontColor?: fontColorTypes,
     fontSize: fontSizeTypes,
     fontWeight: fontWeightTypes,
-    onClick: () => void,
+    onClick: (event: any) => void,
     buttonClasses?: string,
 }
 

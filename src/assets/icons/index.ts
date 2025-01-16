@@ -6,6 +6,7 @@ import Tag from "./Tag";
 import User from "./User";
 import Share from "./Share";
 import Add from "./Add";
+import Loader from "./Loader";
 
 export {
     Twitter,
@@ -16,4 +17,5 @@ export {
     User,
     Share,
     Add,
+    Loader,
 }
