@@ -6,6 +6,7 @@ import { API_VERSION } from "../../constants/constants";
 import { Loader } from "../assets/icons";
 import { login } from "../features/auth";
 import { useDispatch } from "react-redux";
+import { Brain, Back } from "../assets/icons";
 
 const Login = () => {
     const usernameRef = useRef<HTMLInputElement>(null);
@@ -13,6 +14,9 @@ const Login = () => {
     const passwordRef = useRef<HTMLInputElement>(null);
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>("");
+    const [error, setError] = useState<string>("");
+    const [isCreated, setIsCreated] = useState<boolean>();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -32,48 +36,75 @@ const Login = () => {
         formData.append("password", password || "");
 
         axios
-            .post(
-                `http://localhost:3000/${API_VERSION}/user/signin`,
-                formData,
-                {
-                    headers: {
-                        // Since this is not a multipart form so we are setting the content type to application/json
-                        "Content-Type": "application/json",
-                    },
-                }
-            )
+            .post(`/${API_VERSION}/user/signin`, formData, {
+                headers: {
+                    // Since this is not a multipart form so we are setting the content type to application/json
+                    "Content-Type": "application/json",
+                },
+            })
             .then((response) => {
                 setIsLoading(false);
                 console.log(response.data);
                 console.log(response.status);
 
+                // @ts-ignore
+                const message = response.data.message;
+
                 if (response.status == 200) {
+                    setIsCreated(true);
+                    setMessage(message);
                     // clear the form fields
                     usernameRef.current!.value = "";
                     emailRef.current!.value = "";
                     passwordRef.current!.value = "";
 
                     // redirect the user back to the home page and set the isAuthenticated in the app's store to be true
-                    dispatch(login({
-                        isAuthenticated: true,
-                    }));
-                    navigate("/");
+                    dispatch(
+                        login({
+                            isAuthenticated: true,
+                        })
+                    );
+
+                    setTimeout(() => {
+                        navigate("/");
+                    }, 500);
                 }
             })
             .catch((error: any) => {
                 setIsLoading(false);
+                setIsCreated(false);
+                setError(error.response.data.message);
                 console.log(error.response.data);
                 console.log(error.response.status);
             });
     };
 
     return (
-        <div className="min-h-screen flex font-primary max-md:flex-col">
+        <div className="min-h-screen flex font-primary max-md:flex-col relative">
+            <Link
+                to={"/"}
+                className="absolute top-3 left-3 bg-black rounded-full p-2 hover:opacity-50 cursor-pointer active:scale-95 transition-all duration-100 ease-in-out"
+            >
+                <Back
+                    width={20}
+                    height={20}
+                    strokeColor="#FFF"
+                    strokeWidth={2}
+                />
+            </Link>
             <section className="flex-1 bg-primary text-white grid place-content-center p-2">
                 <div className="flex flex-col gap-3 max-w-[500px]">
-                    <span className="font-semibold text-3xl md:text-5xl">
-                        Second Brain
-                    </span>
+                    <div className="flex items-center gap-2">
+                        <Brain
+                            height={40}
+                            width={40}
+                            strokeColor="#FFFFFF"
+                            strokeWidth={3}
+                        />
+                        <h1 className="font-semibold text-3xl md:text-5xl">
+                            Second Brain
+                        </h1>
+                    </div>
                     <div className="text-lg flex flex-col">
                         <span>
                             Save what's in your first brain to the{" "}
@@ -96,11 +127,19 @@ const Login = () => {
                 </div>
             </section>
             <section className="flex-1 flex flex-col gap-3 justify-center items-center">
+                <div
+                    className={`absolute top-3 right-3 bg-white rounded-md shadow-sm px-4 py-3 ${
+                        message.length > 0 ? "flex" : "hidden"
+                    } shadow-black text-sm ${
+                        isCreated ? "text-green-500" : "text-rose-500"
+                    }`}
+                >
+                    ✅ {message && message}
+                </div>
                 <form
                     className="w-full flex flex-col items-center gap-8"
                     method="POST"
                 >
-                    {/* <h1 className="text-3xl font-semibold">Welcome back</h1> */}
                     <div className="flex flex-col gap-2 w-2/3">
                         <Input
                             flexProperties="flex flex-col gap-1"
@@ -166,6 +205,13 @@ const Login = () => {
                         />
 
                         <Link to="/signup">Don't have an account?</Link>
+                        <div
+                            className={`${
+                                error.length > 0 ? "flex" : "hidden"
+                            } text-sm text-red-500`}
+                        >
+                            {error && error}
+                        </div>
                     </div>
                     {!isLoading ? (
                         <Button

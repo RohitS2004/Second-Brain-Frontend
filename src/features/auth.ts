@@ -2,12 +2,16 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface Auth {
     isAuthenticated: boolean,
-    username: string
+    username: string,
+    email: string,
+    profilePicture: string,
 }
 
 const initialState: Auth = {
     isAuthenticated: false,
     username: "",
+    email: "",
+    profilePicture: "",
 }
 
 const AuthSlice = createSlice({
@@ -20,11 +24,13 @@ const AuthSlice = createSlice({
         logout: (state, action) => {
             state.isAuthenticated = action.payload.isAuthenticated;
         },
-        setUsername: (state, action) => {
-            state.username = action.payload;
-        }
+        setUserInfo: (state, action) => {
+            state.username = action.payload.username;
+            state.email = action.payload.email;
+            state.profilePicture = action.payload.profilePicture;
+        },
     }
 })
 
-export const { login, logout, setUsername } = AuthSlice.actions;
+export const { login, logout, setUserInfo } = AuthSlice.actions;
 export default AuthSlice.reducer;

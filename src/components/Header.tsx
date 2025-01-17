@@ -1,8 +1,10 @@
 import { Add, Share } from "../assets/icons";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ about }: { about: string}) => {
 
+    const navigate = useNavigate();
 
     return (
         <header className="flex justify-between pr-2 pl-5 py-2 items-center">
@@ -43,7 +45,9 @@ const Header = ({ about }: { about: string}) => {
                 fontWeight="normal"
                 onActiveClasses="active:scale-95"
                 onHoverClasses="hover:opacity-70"
-                onClick={() => {console.log("Button clicked")}}
+                onClick={() => {
+                    navigate("/create");
+                }}
                 borderRadius="md"
                 buttonClasses="font-primary max-md:hidden"
                 buttonIcon={<Add 

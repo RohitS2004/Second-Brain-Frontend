@@ -14,17 +14,32 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_VERSION } from "../constants/constants";
 import { useDispatch, useSelector } from "react-redux";
+import { login } from "./features/auth";
 
 function App() {
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
-    console.log(isAuthenticated);
+    const dispatch = useDispatch();
+    const [username, setUsername] = useState<string>("");
+    const [profilePicture, setProfilePicture] = useState<string>("");
 
     useEffect(() => {
         axios
-            .get(`http://localhost:3000/${API_VERSION}/content`)
+            .get(`/${API_VERSION}/content`)
             .then((response) => {
                 console.log(response.data);
                 console.log(response.status);
+
+                // @ts-ignore
+                const { username, profilePicture } = response.data.data
+
+                if (response.status === 200) {
+                    setUsername(username)
+                    setProfilePicture(profilePicture);
+
+                    dispatch(login({
+                        isAuthenticated: true,
+                    }))
+                }
             })
             .catch((error: any) => {
                 console.log(error.status);
@@ -187,7 +202,18 @@ function App() {
                                     buttonClasses="max-md:hidden"
                                 />
                             </div>
-                        ) : null}
+                        ) : (
+                            <div
+                            className="p-2 w-full flex items-center gap-2 bg-gradient-to-r from-gradientFrom to-gradientTo text-white"
+                            >   
+                                <img src={profilePicture} alt="user profile picture" width={50} className="rounded-full aspect-square"/>
+                                <h2 className="text-2xl font-primary">
+                                    {
+                                        username
+                                    }
+                                </h2>
+                            </div>
+                        )}
                     </div>
                 </section>
 
@@ -206,3 +232,5 @@ export default App;
 // Do the Font Selection
 // Work on the responsiveness
 // Implement the dark mode toggler
+
+// * Implement the server proxy, only then the cookies will be set in the browser

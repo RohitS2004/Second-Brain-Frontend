@@ -7,6 +7,8 @@ import User from "./User";
 import Share from "./Share";
 import Add from "./Add";
 import Loader from "./Loader";
+import Back from "./Back";
+import Brain from "./Brain";
 
 export {
     Twitter,
@@ -18,4 +20,6 @@ export {
     Share,
     Add,
     Loader,
+    Back,
+    Brain
 }
