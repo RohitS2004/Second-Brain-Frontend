@@ -1,6 +1,6 @@
 import { ReactElement } from "react";
 
-type backgroundColorTypes = "transparent" | "slate" | "primary" | "secondary" | "gradient"
+type backgroundColorTypes = "transparent" | "slate" | "primary" | "secondary" | "gradient" | "black" ;
 type fontColorTypes = "black" | "white" | "primary" | "secondary"
 type fontSizeTypes = "md" | "lg" | "xl" | "2xl" | "3xl";
 type fontWeightTypes = "normal" | "semibold" | "bold" | "extrabold";
@@ -31,6 +31,7 @@ const BackgroundColor = {
     primary: "bg-primary",
     secondary: "bg-secondary",
     gradient: "bg-gradient-to-r from-gradientFrom to-gradientTo",
+    black: "bg-black",
 }
 
 const FontColor = {

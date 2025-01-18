@@ -8,7 +8,7 @@ import {
     Tag,
     User,
 } from "./assets/icons";
-import { Button } from "./components";
+import { Button, Header } from "./components";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -17,7 +17,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "./features/auth";
 
 function App() {
-    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
+    const isAuthenticated = useSelector(
+        (state: any) => state.auth.isAuthenticated
+    );
     const dispatch = useDispatch();
     const [username, setUsername] = useState<string>("");
     const [profilePicture, setProfilePicture] = useState<string>("");
@@ -30,15 +32,17 @@ function App() {
                 console.log(response.status);
 
                 // @ts-ignore
-                const { username, profilePicture } = response.data.data
+                const { username, profilePicture } = response.data.data;
 
                 if (response.status === 200) {
-                    setUsername(username)
+                    setUsername(username);
                     setProfilePicture(profilePicture);
 
-                    dispatch(login({
-                        isAuthenticated: true,
-                    }))
+                    dispatch(
+                        login({
+                            isAuthenticated: true,
+                        })
+                    );
                 }
             })
             .catch((error: any) => {
@@ -128,9 +132,9 @@ function App() {
     ];
 
     return (
-        <div className="max-w-full min-h-screen">
+        <div className="max-w-full h-screen relative">
             <main className="flex min-h-screen">
-                <section className="max-md:w-fit w-1/4 bg-white shadow-2xl shadow-black flex flex-col min-h-screen gap-6">
+                <section className="max-md:w-fit w-1/4 bg-white shadow-2xl shadow-black flex flex-col max-h-screen gap-6">
                     <header
                         className="flex items-center gap-2 max-md:justify-center p-2 cursor-pointer"
                         onClick={() => {
@@ -203,22 +207,24 @@ function App() {
                                 />
                             </div>
                         ) : (
-                            <div
-                            className="p-2 w-full flex items-center gap-2 bg-gradient-to-r from-gradientFrom to-gradientTo text-white"
-                            >   
-                                <img src={profilePicture} alt="user profile picture" width={50} className="rounded-full aspect-square"/>
-                                <h2 className="text-2xl font-primary">
-                                    {
-                                        username
-                                    }
+                            <div className="p-2 w-full flex items-center gap-2 bg-gradient-to-r from-gradientFrom to-gradientTo text-white">
+                                <img
+                                    src={profilePicture}
+                                    alt="user profile picture"
+                                    width={50}
+                                    className="rounded-full aspect-square"
+                                />
+                                <h2 className="text-2xl font-primary max-md:hidden">
+                                    {username}
                                 </h2>
                             </div>
                         )}
                     </div>
                 </section>
 
-                <section className="w-3/4 max-md:flex-grow bg-slate-200 min-h-screen">
-                    <Outlet></Outlet>
+                <section className="w-3/4 max-md:flex-grow bg-slate-200 max-h-screen flex flex-col gap-6">
+                    <Header />
+                    <Outlet>{/* Content */}</Outlet>
                 </section>
             </main>
         </div>

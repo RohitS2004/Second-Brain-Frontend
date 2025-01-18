@@ -9,6 +9,8 @@ import Add from "./Add";
 import Loader from "./Loader";
 import Back from "./Back";
 import Brain from "./Brain";
+import Tick from "./Tick";
+import Trash from "./Trash";
 
 export {
     Twitter,
@@ -21,5 +23,7 @@ export {
     Add,
     Loader,
     Back,
-    Brain
+    Brain,
+    Tick,
+    Trash,
 }

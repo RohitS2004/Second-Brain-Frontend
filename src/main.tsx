@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <Signup />
-    }
+    },
 ]);
 
 createRoot(document.getElementById("root")!).render(

@@ -1,27 +1,20 @@
 import { useSelector } from "react-redux";
-import { Header } from "../components"
+import { Header } from "../components";
 
 const Video = () => {
-
-    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
+    const isAuthenticated = useSelector(
+        (state: any) => state.auth.isAuthenticated
+    );
 
     return (
-        <div className="flex flex-col gap-6 h-full">
-            <Header 
-            about={"All Videos"}
-            />
-
-            <div className="flex-grow flex p-2">
-                {
-                    !isAuthenticated ? (
-                        <span className="text-lg font-primary place-self-center w-full text-center">
-                            Please login to access the content
-                        </span>
-                    ) : null
-                }
-            </div>
+        <div className="flex-grow flex p-2">
+            {!isAuthenticated ? (
+                <span className="text-lg font-primary place-self-center w-full text-center">
+                    Please login to access the content
+                </span>
+            ) : null}
         </div>
-    )
-}
+    );
+};
 
 export default Video;

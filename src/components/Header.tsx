@@ -1,17 +1,18 @@
+import { useSelector } from "react-redux";
 import { Add, Share } from "../assets/icons";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ about }: { about: string}) => {
+const Header = () => {
 
     const navigate = useNavigate();
+
+    const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
     return (
         <header className="flex justify-between pr-2 pl-5 py-2 items-center">
             <div className="font-semibold text-2xl font-primary">
-                {
-                    about
-                }
+                All Posts
             </div>
             <div className="flex items-center gap-3">
                 <Button 
@@ -46,7 +47,8 @@ const Header = ({ about }: { about: string}) => {
                 onActiveClasses="active:scale-95"
                 onHoverClasses="hover:opacity-70"
                 onClick={() => {
-                    navigate("/create");
+                    if (isAuthenticated)
+                        navigate("/create");
                 }}
                 borderRadius="md"
                 buttonClasses="font-primary max-md:hidden"

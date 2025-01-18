@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { Button, Input } from "../components";
 import { API_VERSION } from "../../constants/constants";
 import axios from "axios";
-import { Back, Loader } from "../assets/icons";
+import { Back, Loader, Tick } from "../assets/icons";
 import { Link, useNavigate } from "react-router-dom";
 import Brain from "../assets/icons/Brain";
 import { useDispatch } from "react-redux";
@@ -144,13 +144,21 @@ const Signup = () => {
             </section>
             <section className="flex-1 flex flex-col gap-3 justify-center items-center relative">
                 <div
-                    className={`absolute top-3 right-3 bg-white rounded-md shadow-sm px-4 py-3 ${
+                    className={`flex items-center gap-2 absolute top-3 right-3 bg-white rounded-md shadow-sm px-4 py-3 ${
                         message.length > 0 ? "flex" : "hidden"
-                    } shadow-black text-sm ${
-                        isCreated ? "text-green-500" : "text-rose-500"
+                    } shadow-black text-lg ${
+                        isCreated ? "text-green-600" : "text-red-500"
                     }`}
                 >
-                    ✅ {message && message}
+                    <div className="rounded-full p-1 bg-green-600">
+                        <Tick
+                            width={15}
+                            height={15}
+                            strokeColor="#FFF"
+                            strokeWidth={2}
+                        />
+                    </div>
+                    <span>{message && message}</span>
                 </div>
                 <form
                     className="w-full flex flex-col items-center gap-8"
