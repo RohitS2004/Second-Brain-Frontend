@@ -1,19 +1,23 @@
 import { Document, Share, Trash, Twitter, Video } from "../assets/icons";
-import Button from "./Button";
 
 interface CardProps {
     title: string;
-    description?: string;
-    link?: string;
-    tagsAssociated?: string[];
-    category: "tweet" | "video" | "document";
-    // Add the date of creation later
+    category: "tweet" | "document" | "video";
+    link: string;
+    description: string;
+    tagsAssociated: string[];
+    id: string;
+    handlePostDelete: any;
+    handlePostUpdate: any;
 }
 
 const Card = (props: CardProps) => {
     return (
-        <div className="flex flex-col gap-4 bg-white shadow-sm shadow-black rounded-md font-primary h-fit w-full">
-            <div className="flex items-start justify-between gap-10 px-2 py-1 rounded-tl-md rounded-tr-md">
+        <div
+            className="flex flex-col gap-4 bg-white shadow-sm shadow-black rounded-md font-primary h-fit min-w-full py-2"
+            onClick={(e) => props.handlePostUpdate(e, props.id)}
+        >
+            <div className="flex items-start justify-between gap-10 pl-2 pr-1 rounded-tl-md rounded-tr-md">
                 <div className="flex flex-col items-start gap-2">
                     {props.category === "tweet" ? (
                         <Twitter
@@ -51,7 +55,10 @@ const Card = (props: CardProps) => {
                         />
                     </div>
 
-                    <div className="cursor-pointer">
+                    <div
+                        className="cursor-pointer hover:bg-red-200 p-1 rounded-full transition-all duration-300 ease-in-out"
+                        onClick={(e) => props.handlePostDelete(e, props.id)}
+                    >
                         <Trash
                             width={18}
                             height={18}
@@ -62,29 +69,23 @@ const Card = (props: CardProps) => {
                 </div>
             </div>
 
-            <div className="p-2 text-lg">
-                {
-                    props.description
-                }
-            </div>
-            
-            <div className="p-2 flex flex-col gap-2">
+            <div className="p-2 text-sm font-light">{props.description}</div>
+
+            <div className="p-2 flex flex-col gap-2 text-clip break-words">
                 <div className="flex flex-wrap gap-2">
-                    {
-                        props.tagsAssociated?.map(tag => (
-                            <span className="text-sm bg-secondary px-2 rounded-md text-primary">
-                                #{
-                                    tag
-                                }
-                            </span>
-                        ))
-                    }
+                    {props.tagsAssociated?.map((tag, index) => (
+                        <span className="text-xs bg-secondary px-2 rounded-md text-primary" key={index}>
+                            #{tag}
+                        </span>
+                    ))}
                 </div>
 
-                <a className="text-sm text-blue-500 underline" href={props.link} target="_blank">
-                    {
-                        props.link
-                    }
+                <a
+                    className="text-xs text-blue-500 underline w-fit"
+                    href={props.link}
+                    target="_blank"
+                >
+                    {props.link}
                 </a>
             </div>
         </div>

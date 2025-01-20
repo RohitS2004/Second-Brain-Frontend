@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-type TextSizeTypes = "md" | "lg" | "xl" | "2xl" | "none";
+type TextSizeTypes = "sm" | "lg" | "xl" | "2xl" | "none";
 type TextWeightTypes = "normal" | "medium" | "semibold" | "bold" | "none";
 type TextColorTypes = "black" | "primary" | "none";
 type BackgroundColorTypes = "transparent" | "slate" | "none";
@@ -23,10 +23,12 @@ interface InputProps {
     inputOutline: string,
     inputBorder: string,
     inputClasses: string,
+    inputValue?: string,
+    onChange?: any, // on change function
 }
 
 const TextSize = {
-    md: "text-md",
+    sm: "text-sm",
     lg: "text-lg",
     xl: "text-xl",
     "2xl": "text-2xl",
@@ -87,6 +89,8 @@ const Input = (props: InputProps, ref: any) => {
             type={props.inputType}
             placeholder={props.inputPlaceholder}
             ref={ref}
+            value={props.inputValue}
+            onChange={(e) => props.onChange(e)}
             />
         </div>
     )

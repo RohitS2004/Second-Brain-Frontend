@@ -4,6 +4,7 @@ import Video from "./Video";
 import Document from "./Document";
 import Signup from "./Signup"
 import Create from "./Create";
+import Update from "./Update"
 
 export {
     Home,
@@ -11,5 +12,6 @@ export {
     Video,
     Document,
     Signup,
-    Create
+    Create,
+    Update,
 }

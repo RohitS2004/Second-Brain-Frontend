@@ -1,18 +1,23 @@
 import { useSelector } from "react-redux";
 import { Add, Share } from "../assets/icons";
 import Button from "./Button";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const Header = () => {
 
+    const location = useLocation();
     const navigate = useNavigate();
+
+    const headerValue = location.pathname.replace("/content/", "");
 
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
     return (
         <header className="flex justify-between pr-2 pl-5 py-2 items-center">
-            <div className="font-semibold text-2xl font-primary">
-                All Posts
+            <div className="text-2xl font-primary">
+                All {
+                    headerValue === "tweets" || headerValue === "documents" || headerValue === "videos" ? headerValue : "posts"
+                }
             </div>
             <div className="flex items-center gap-3">
                 <Button 

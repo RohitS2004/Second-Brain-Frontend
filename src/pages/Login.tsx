@@ -24,13 +24,16 @@ const Login = () => {
     const handleUserLogin = (event: any) => {
         event.preventDefault();
         setIsLoading(true);
-        // create a form data
+        
+        // prepare data
         const username = usernameRef.current?.value;
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
 
+        // Creating a new FormData object
         const formData = new FormData();
 
+        // Attaching the data to the form instance
         formData.append("username", username || "");
         formData.append("email", email || "");
         formData.append("password", password || "");
@@ -58,7 +61,6 @@ const Login = () => {
                     emailRef.current!.value = "";
                     passwordRef.current!.value = "";
 
-                    // redirect the user back to the home page and set the isAuthenticated in the app's store to be true
                     dispatch(
                         login({
                             isAuthenticated: true,

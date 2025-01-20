@@ -5,3 +5,5 @@ export interface IconProps {
     height: number,
 }
 
+export type FormTypes = "update" | "create"
+

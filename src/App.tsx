@@ -25,30 +25,25 @@ function App() {
     const [profilePicture, setProfilePicture] = useState<string>("");
 
     useEffect(() => {
-        axios
-            .get(`/${API_VERSION}/content`)
-            .then((response) => {
-                console.log(response.data);
-                console.log(response.status);
+        
+        axios.get(`/${API_VERSION}/user`)
+        .then((response) => {
+            
+            // @ts-ignore
+            const username = response.data.data.username;
+            // @ts-ignore
+            const profilePicture = response.data.data.profilePicture;
 
-                // @ts-ignore
-                const { username, profilePicture } = response.data.data;
+            setUsername(username);
+            setProfilePicture(profilePicture)
+            dispatch(login({
+                isAuthenticated: true,
+            }))
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+        })
 
-                if (response.status === 200) {
-                    setUsername(username);
-                    setProfilePicture(profilePicture);
-
-                    dispatch(
-                        login({
-                            isAuthenticated: true,
-                        })
-                    );
-                }
-            })
-            .catch((error: any) => {
-                console.log(error.status);
-                console.log(error.response.data);
-            });
     }, []);
 
     const navigate = useNavigate();
@@ -233,10 +228,9 @@ function App() {
 
 export default App;
 
-// Side by side implement the light and dark theme
-// First do the colo scheming for the application
-// Do the Font Selection
-// Work on the responsiveness
-// Implement the dark mode toggler
+// set the profile name
+// set the profile picture
+// set the isAuthenticated
+// inside the store
 
-// * Implement the server proxy, only then the cookies will be set in the browser
+// Remaining bits: Token Refresh, Logout, Share Brain feature, AI integration and Tags and Link feature too...

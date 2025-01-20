@@ -26,15 +26,19 @@ const Signup = () => {
     const handleUserSignup = (event: any) => {
         event.preventDefault();
         setIsLoading(true);
+
+        // prepare data
         const username = usernameRef.current?.value;
         const email = emailRef.current?.value;
         const password = passwordRef.current?.value;
         const profilePicture = fileRef.current?.files?.item(0);
         // This will be a FileList containing all the files in an array, to access them we use item() method and pass the index
 
+
         const formData = new FormData();
         // FormData is a built-in class that allows you to create key values pairs that can be sent to the server, you can also send files with the for data. The form will be similar to the multipart form data that you see in the network tab in the browser dev tabs.
 
+        // Attaching the data to the form instance
         formData.append("username", username || "");
         formData.append("email", email || "");
         formData.append("password", password || "");
@@ -286,18 +290,3 @@ const Signup = () => {
 };
 
 export default Signup;
-
-/* 
-response.data structure
-{
-    status: "success",
-    message: "User created successfully!", // Show this message in the frontend somehow
-    data: { 
-        // Save this data in the app's store
-        associatedPosts: [],
-        email: "",
-        profilePicture: "",
-        username: "",
-    }
-}
-*/
