@@ -28,7 +28,11 @@ const Header = () => {
                 fontWeight="normal"
                 onActiveClasses="active:scale-95"
                 onHoverClasses="hover:opacity-70"
-                onClick={() => {console.log("Button clicked")}}
+                onClick={() => {
+                    if (isAuthenticated) {
+                        navigate("/share")
+                    }
+                }}
                 borderRadius="md"
                 buttonClasses="font-primary max-md:hidden"
                 buttonIcon={<Share 

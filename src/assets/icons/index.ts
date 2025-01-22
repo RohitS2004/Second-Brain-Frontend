@@ -11,6 +11,9 @@ import Back from "./Back";
 import Brain from "./Brain";
 import Tick from "./Tick";
 import Trash from "./Trash";
+import Share2 from "./Share2";
+import Star from "./Star";
+import Copy from "./Copy";
 
 export {
     Twitter,
@@ -26,4 +29,7 @@ export {
     Brain,
     Tick,
     Trash,
+    Share2,
+    Star,
+    Copy,
 }

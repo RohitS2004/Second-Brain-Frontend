@@ -7,8 +7,9 @@ interface CardProps {
     description: string;
     tagsAssociated: string[];
     id: string;
-    handlePostDelete: any;
-    handlePostUpdate: any;
+    handlePostDelete?: any;
+    handlePostUpdate?: any;
+    showControls: boolean;
 }
 
 const Card = (props: CardProps) => {
@@ -45,36 +46,41 @@ const Card = (props: CardProps) => {
                     <h2 className="text-lg">{props.title}</h2>
                 </div>
 
-                <div className="flex items-center gap-2">
-                    <div className="cursor-pointer">
-                        <Share
-                            width={18}
-                            height={18}
-                            strokeColor="#000"
-                            strokeWidth={2}
-                        />
-                    </div>
+                {props.showControls ? (
+                    <div className="flex items-center gap-2">
+                        <div className="cursor-pointer">
+                            <Share
+                                width={18}
+                                height={18}
+                                strokeColor="#000"
+                                strokeWidth={2}
+                            />
+                        </div>
 
-                    <div
-                        className="cursor-pointer hover:bg-red-200 p-1 rounded-full transition-all duration-300 ease-in-out"
-                        onClick={(e) => props.handlePostDelete(e, props.id)}
-                    >
-                        <Trash
-                            width={18}
-                            height={18}
-                            strokeColor="#000"
-                            strokeWidth={2}
-                        />
+                        <div
+                            className="cursor-pointer hover:bg-red-200 p-1 rounded-full transition-all duration-300 ease-in-out"
+                            onClick={(e) => props.handlePostDelete(e, props.id)}
+                        >
+                            <Trash
+                                width={18}
+                                height={18}
+                                strokeColor="#000"
+                                strokeWidth={2}
+                            />
+                        </div>
                     </div>
-                </div>
+                ) : null}
             </div>
 
             <div className="p-2 text-sm font-light">{props.description}</div>
 
-            <div className="p-2 flex flex-col gap-2 text-clip break-words">
+            <div className="p-2 flex flex-col gap-2 break-all max-w-full w-full">
                 <div className="flex flex-wrap gap-2">
                     {props.tagsAssociated?.map((tag, index) => (
-                        <span className="text-xs bg-secondary px-2 rounded-md text-primary" key={index}>
+                        <span
+                            className="text-xs bg-secondary px-2 rounded-md text-primary"
+                            key={index}
+                        >
                             #{tag}
                         </span>
                     ))}

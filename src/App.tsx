@@ -7,6 +7,7 @@ import {
     Link as LinkComp,
     Tag,
     User,
+    Star,
 } from "./assets/icons";
 import { Button, Header } from "./components";
 import { useNavigate } from "react-router-dom";
@@ -124,6 +125,21 @@ function App() {
                 console.log("Button clicked!");
             },
         },
+        {
+            name: "AI",
+            icon:(
+                <Star 
+                width={30}
+                height={30}
+                strokeColor="#000000"
+                strokeWidth={2}
+                />
+            ),
+            link: "",
+            handleClick: () => {
+                console.log("Button Clicked!");
+            }
+        }
     ];
 
     return (

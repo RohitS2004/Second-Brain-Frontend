@@ -19,8 +19,8 @@ interface ButtonProps {
     borderRadius?: borderRadiusTypes,
     backgroundColor: backgroundColorTypes,
     fontColor?: fontColorTypes,
-    fontSize: fontSizeTypes,
-    fontWeight: fontWeightTypes,
+    fontSize?: fontSizeTypes,
+    fontWeight?: fontWeightTypes,
     onClick: (event: any) => void,
     buttonClasses?: string,
 }

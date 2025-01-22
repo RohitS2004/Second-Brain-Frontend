@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
-import { Home, Twitter, Video, Document, Signup, Create, Update } from "./pages";
+import { Home, Twitter, Video, Document, Signup, Create, Update, Share, Public } from "./pages";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./app/store.ts";
@@ -36,6 +36,10 @@ const router = createBrowserRouter([
             {
                 path: "/update/:postId",
                 element: <Update />
+            },
+            {
+                path: "/share",
+                element: <Share />
             }
         ],
     },
@@ -47,6 +51,10 @@ const router = createBrowserRouter([
         path: "/signup",
         element: <Signup />
     },
+    {
+        path: "/public/:token",
+        element: <Public />
+    }
 ]);
 
 createRoot(document.getElementById("root")!).render(

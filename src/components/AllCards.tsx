@@ -96,6 +96,7 @@ const AllCards = (props: AllCardProps) => {
                                 key={index}
                                 handlePostDelete={handlePostDelete}
                                 handlePostUpdate={handlePostUpdate}
+                                showControls={true}
                             />
                         }
                     </>

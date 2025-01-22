@@ -5,6 +5,8 @@ import Document from "./Document";
 import Signup from "./Signup"
 import Create from "./Create";
 import Update from "./Update"
+import Share from "./Share";
+import Public from "./Public";
 
 export {
     Home,
@@ -14,4 +16,6 @@ export {
     Signup,
     Create,
     Update,
+    Share,
+    Public,
 }
