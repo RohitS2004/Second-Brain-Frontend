@@ -80,7 +80,7 @@ const AllCards = (props: AllCardProps) => {
             } relative`}
         >
             {!isAuthenticated || error ? (
-                <div className="text-lg font-primary text-center">
+                <div className="text-lg text-center font-primary">
                     Please login to access the content
                     {error && error}
                 </div>
@@ -109,9 +109,3 @@ const AllCards = (props: AllCardProps) => {
 };
 
 export default AllCards;
-
-// Fetch all the cards
-// Which is the type of content that you want to fetch? So a content type
-// define the handlePostDelete
-// define the handlePostUpdate
-// based on the content run the query from the database

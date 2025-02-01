@@ -3,7 +3,7 @@ import { Button, Input } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_VERSION } from "../../constants/constants";
-import { Loader, Tick } from "../assets/icons";
+import { Loader } from "../assets/icons";
 import { login } from "../features/auth";
 import { useDispatch } from "react-redux";
 import { Brain, Back } from "../assets/icons";
@@ -126,23 +126,6 @@ const Login = () => {
                 </div>
             </section>
             <section className="flex flex-col items-center justify-center flex-1 gap-3">
-                {/* <div
-                    className={`flex items-center gap-2 absolute top-3 right-3 bg-white rounded-md shadow-sm px-4 py-3 ${
-                        message.length > 0 ? "flex" : "hidden"
-                    } shadow-black text-lg ${
-                        isCreated ? "text-green-600" : "text-red-500"
-                    }`}
-                >
-                    <div className="p-1 bg-green-600 rounded-full">
-                        <Tick
-                            width={15}
-                            height={15}
-                            strokeColor="#FFF"
-                            strokeWidth={2}
-                        />
-                    </div>
-                    <span>{message && message}</span>
-                </div> */}
                 <form
                     className="flex flex-col items-center w-full gap-8"
                     method="POST"

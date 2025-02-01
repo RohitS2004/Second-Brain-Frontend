@@ -8,6 +8,7 @@ import Update from "./Update"
 import Share from "./Share";
 import Public from "./Public";
 import Profile from "./Profile";
+import Artifical from "./Artifical";
 
 export {
     Home,
@@ -20,4 +21,5 @@ export {
     Share,
     Public,
     Profile,
+    Artifical,
 }

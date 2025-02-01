@@ -173,9 +173,9 @@ function App() {
                 strokeWidth={2}
                 />
             ),
-            link: "",
+            link: "/ai",
             handleClick: () => {
-                console.log("Button Clicked!");
+                navigate("/ai")
             }
         }
     ];
@@ -295,12 +295,17 @@ function App() {
 
 export default App;
 
-// set the profile name
-// set the profile picture
-// set the isAuthenticated
-// inside the store
-
 // ! Remaining bits: AI integration...
 
 // Add the profile page, in which the user can update his profile 
 // Add the AI page, in which we can chat with a llm
+// Add the forgot password and change password feature
+// If updating any file like profile picture then it a good practice to use a seperate controller for update file 
+// When upading the profile picture delete the previous image from the cloudinary or if the user has deleted his account then also remove the file from cloudinary
+
+// * Whenever the user is creating the post and adding some tags to that post then those post's id will be attached to that particular post tagsId array and to do this, I am doing a database query to get the tags _id and storing them in a array and assigning that array to the post tagsId array
+
+// * Can use reduce the number of database calls? Will mongodb aggreagtion pipeline help in this scenario?
+
+// Create embeddings for each of the posts that the user have using any llm like openai/gemini/hugging_face
+// And similarly for each of the query generate embeddings for that and then send this vector to the llm

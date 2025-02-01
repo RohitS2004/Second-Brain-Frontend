@@ -8,15 +8,17 @@ const Header = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const headerValue = location.pathname.replace("/content/", "");
+    const headerValue = location.pathname === "/ai" ? "Ask AI" : location.pathname === "/" ? "All posts" : "All " + location.pathname.replace("/content/", "");
+
+    console.log(headerValue);
 
     const isAuthenticated = useSelector((state: any) => state.auth.isAuthenticated);
 
     return (
-        <header className="flex justify-between pr-2 pl-5 py-2 items-center">
+        <header className="flex items-center justify-between py-2 pl-5 pr-2">
             <div className="text-2xl font-primary">
-                All {
-                    headerValue === "tweets" || headerValue === "documents" || headerValue === "videos" ? headerValue : "posts"
+                {
+                    headerValue
                 }
             </div>
             <div className="flex items-center gap-3">

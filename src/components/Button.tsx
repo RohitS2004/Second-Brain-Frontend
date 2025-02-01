@@ -79,8 +79,8 @@ const Button = (props: ButtonProps) => {
             ${BorderRadius[props.borderRadius || "none"]}
             ${BackgroundColor[props.backgroundColor]}
             ${FontColor[props.fontColor || "black"]}
-            ${FontSize[props.fontSize]}
-            ${FontWeight[props.fontWeight]}
+            ${FontSize[props.fontSize || "md"]}
+            ${FontWeight[props.fontWeight || "normal"]}
             `}
         onClick={props.onClick}
         >
