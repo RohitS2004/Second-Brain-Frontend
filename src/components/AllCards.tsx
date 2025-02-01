@@ -39,6 +39,8 @@ const AllCards = (props: AllCardProps) => {
                 // @ts-ignore
                 const responsePosts = response.data.data.posts; 
                 setPosts(responsePosts);
+
+                navigate("/");
             })
             .catch((error) => {
                 setError(error.response.data.message);

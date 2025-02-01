@@ -24,7 +24,7 @@ const Login = () => {
     const handleUserLogin = (event: any) => {
         event.preventDefault();
         setIsLoading(true);
-        
+
         // prepare data
         const username = usernameRef.current?.value;
         const email = emailRef.current?.value;
@@ -66,10 +66,7 @@ const Login = () => {
                             isAuthenticated: true,
                         })
                     );
-
-                    setTimeout(() => {
-                        navigate("/");
-                    }, 500);
+                    navigate("/");
                 }
             })
             .catch((error: any) => {
@@ -82,10 +79,10 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen flex font-primary max-md:flex-col relative">
+        <div className="relative flex min-h-screen font-primary max-md:flex-col">
             <Link
                 to={"/"}
-                className="absolute top-3 left-3 bg-black rounded-full p-2 hover:opacity-50 cursor-pointer active:scale-95 transition-all duration-100 ease-in-out"
+                className="absolute p-2 transition-all duration-100 ease-in-out bg-black rounded-full cursor-pointer top-3 left-3 hover:opacity-50 active:scale-95"
             >
                 <Back
                     width={20}
@@ -94,7 +91,7 @@ const Login = () => {
                     strokeWidth={2}
                 />
             </Link>
-            <section className="flex-1 bg-primary text-white grid place-content-center p-2">
+            <section className="grid flex-1 p-2 text-white bg-primary place-content-center">
                 <div className="flex flex-col gap-3 max-w-[500px]">
                     <div className="flex items-center gap-2">
                         <Brain
@@ -103,14 +100,14 @@ const Login = () => {
                             strokeColor="#FFFFFF"
                             strokeWidth={3}
                         />
-                        <h1 className="font-semibold text-3xl md:text-5xl">
+                        <h1 className="text-3xl font-semibold md:text-5xl">
                             Second Brain
                         </h1>
                     </div>
-                    <div className="text-lg flex flex-col">
+                    <div className="flex flex-col text-lg">
                         <span>
                             Save what's in your first brain to the{" "}
-                            <span className="text-black px-1 font-semibold bg-yellow-300">
+                            <span className="px-1 font-semibold text-black bg-yellow-300">
                                 second brain
                             </span>{" "}
                             .
@@ -120,7 +117,7 @@ const Login = () => {
                             you.
                         </span>
                         <span>
-                            <span className="text-black px-1 font-semibold bg-yellow-300">
+                            <span className="px-1 font-semibold text-black bg-yellow-300">
                                 Share
                             </span>{" "}
                             your brain with other people
@@ -128,29 +125,29 @@ const Login = () => {
                     </div>
                 </div>
             </section>
-            <section className="flex-1 flex flex-col gap-3 justify-center items-center">
-                <div
+            <section className="flex flex-col items-center justify-center flex-1 gap-3">
+                {/* <div
                     className={`flex items-center gap-2 absolute top-3 right-3 bg-white rounded-md shadow-sm px-4 py-3 ${
                         message.length > 0 ? "flex" : "hidden"
                     } shadow-black text-lg ${
                         isCreated ? "text-green-600" : "text-red-500"
                     }`}
-                >   
-                <div className="rounded-full p-1 bg-green-600">
-                    <Tick
-                        width={15}
-                        height={15}
-                        strokeColor="#FFF"
-                        strokeWidth={2}
-                    />
-                </div>
+                >
+                    <div className="p-1 bg-green-600 rounded-full">
+                        <Tick
+                            width={15}
+                            height={15}
+                            strokeColor="#FFF"
+                            strokeWidth={2}
+                        />
+                    </div>
                     <span>{message && message}</span>
-                </div>
+                </div> */}
                 <form
-                    className="w-full flex flex-col items-center gap-8"
+                    className="flex flex-col items-center w-full gap-8"
                     method="POST"
                 >
-                    <div className="flex flex-col gap-2 w-2/3">
+                    <div className="flex flex-col w-2/3 gap-2">
                         <Input
                             flexProperties="flex flex-col gap-1"
                             labelText="Username:"
@@ -218,9 +215,12 @@ const Login = () => {
                         <div
                             className={`${
                                 error.length > 0 ? "flex" : "hidden"
-                            } text-sm text-red-500`}
+                            } text-sm ${error ? "text-red-500" : "text-green-500"}`}
                         >
                             {error && error}
+                            {
+                                message && message
+                            }
                         </div>
                     </div>
                     {!isLoading ? (
@@ -241,7 +241,7 @@ const Login = () => {
                             fontColor="white"
                         />
                     ) : (
-                        <div className="px-10 py-2 bg-gradient-to-r from-gradientFrom to-gradientTo rounded-md">
+                        <div className="px-10 py-2 rounded-md bg-gradient-to-r from-gradientFrom to-gradientTo">
                             <Loader />
                         </div>
                     )}

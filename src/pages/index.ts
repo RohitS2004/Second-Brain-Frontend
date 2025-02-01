@@ -7,6 +7,7 @@ import Create from "./Create";
 import Update from "./Update"
 import Share from "./Share";
 import Public from "./Public";
+import Profile from "./Profile";
 
 export {
     Home,
@@ -18,4 +19,5 @@ export {
     Update,
     Share,
     Public,
+    Profile,
 }

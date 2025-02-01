@@ -67,7 +67,7 @@ const SharePage = () => {
                             src={profilePicture}
                             alt="profile-picture"
                             width={50}
-                            className="rounded-full"
+                            className="rounded-full aspect-square"
                         />
                     </div>
                 </header>

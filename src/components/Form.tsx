@@ -11,6 +11,7 @@ import { Loader } from "../assets/icons";
 import { FormTypes } from "../assets/icons/types";
 import { API_VERSION } from "../../constants/constants";
 import axios from "axios";
+import { motion } from "motion/react";
 
 interface FormProps {
     formType: FormTypes;
@@ -73,13 +74,16 @@ const Form = (props: FormProps) => {
 
     return (
         <div
-            className="z-20 min-h-screen w-full absolute left-0 bg-black bg-opacity-50 backdrop-blur-sm font-primary flex items-center"
+            className="absolute left-0 z-20 flex items-center w-full min-h-screen bg-black bg-opacity-50 backdrop-blur-sm font-primary"
             id="create-post"
             onClick={(e) => handleEventBubbling(e)}
         >
-            <form
+            <motion.form
                 method="POST"
-                className="lg:w-2/3 xl:w-1/3 mx-auto flex flex-col gap-2 bg-slate-100 px-12 py-4 rounded-md"
+                className="flex flex-col gap-2 px-12 py-4 mx-auto rounded-md lg:w-2/3 xl:w-1/3 bg-slate-100"
+                initial={{ scale: 0 }}
+                animate={{ scale: 1, animation: "ease-in-out" }}
+                transition={{ duration: 0.2 }}
             >
                 <Input
                     flexProperties="flex flex-col gap-1"
@@ -107,7 +111,7 @@ const Form = (props: FormProps) => {
                 />
 
                 <div className="flex flex-col">
-                    <label htmlFor="desc" className="font-normal text-sm">
+                    <label htmlFor="desc" className="text-sm font-normal">
                         Description:
                     </label>
                     <textarea
@@ -121,7 +125,7 @@ const Form = (props: FormProps) => {
                     ></textarea>
                 </div>
 
-                <div className="flex gap-2 flex-col">
+                <div className="flex flex-col gap-2">
                     <Input
                         flexProperties="flex flex-col gap-1 flex-1"
                         labelText="Link:"
@@ -147,14 +151,14 @@ const Form = (props: FormProps) => {
                         }}
                     />
 
-                    <div className="flex flex-col w-fit gap-1">
-                        <label htmlFor="cat" className="font-normal text-sm">
+                    <div className="flex flex-col gap-1 w-fit">
+                        <label htmlFor="cat" className="text-sm font-normal">
                             Category:
                         </label>
                         <select
                             name="cat"
                             id="cat"
-                            className="border-2 bg-slate-100 border-black p-1 rounded-md"
+                            className="p-1 border-2 border-black rounded-md bg-slate-100"
                             ref={props.categoryRef}
                             value={category}
                             onChange={(e: ChangeEvent<HTMLSelectElement>) => {
@@ -218,7 +222,7 @@ const Form = (props: FormProps) => {
                         buttonClasses=""
                     />
                 ) : (
-                    <div className="px-10 py-2 bg-black flex items-center justify-center rounded-md">
+                    <div className="flex items-center justify-center px-10 py-2 bg-black rounded-md">
                         <Loader />
                     </div>
                 )}
@@ -226,7 +230,7 @@ const Form = (props: FormProps) => {
                 <div className="h-[10px] text-red-500 font-primary text-sm">
                     {props.error && props.error}
                 </div>
-            </form>
+            </motion.form>
         </div>
     );
 };

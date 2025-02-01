@@ -14,6 +14,7 @@ import Trash from "./Trash";
 import Share2 from "./Share2";
 import Star from "./Star";
 import Copy from "./Copy";
+import Logout from "./Logout";
 
 export {
     Twitter,
@@ -32,4 +33,5 @@ export {
     Share2,
     Star,
     Copy,
+    Logout,
 }

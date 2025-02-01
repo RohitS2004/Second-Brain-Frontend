@@ -1,9 +1,10 @@
 import { MouseEvent, useEffect, useState } from "react";
-import { Copy, Share2 } from "../assets/icons";
+import { Share2 } from "../assets/icons";
 import { Button } from "../components";
 import { useNavigate } from "react-router-dom";
 import { API_VERSION } from "../../constants/constants";
 import axios from "axios";
+import { motion } from "motion/react"
 
 const Share = () => {
     const navigate = useNavigate();
@@ -40,11 +41,17 @@ const Share = () => {
 
     return (
         <div
-            className="z-20 min-h-screen w-full absolute left-0 top-0 bg-black bg-opacity-50 backdrop-blur-sm font-primary flex items-center justify-center"
+            className="absolute top-0 left-0 z-20 flex items-center justify-center w-full min-h-screen bg-black bg-opacity-50 backdrop-blur-sm font-primary"
             onClick={(e) => handleEventBubbling(e)}
         >
-            <div className="max-w-md w-full p-10 bg-slate-100 rounded-md flex flex-col gap-5">
-                <h2 className="font-semibold text-2xl">
+            <motion.div 
+            className="flex flex-col w-full max-w-md gap-5 p-10 rounded-md bg-slate-100"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1, animation: "ease-in-out" }}
+            transition={{ duration: 0.2 }}
+            
+            >
+                <h2 className="text-2xl font-semibold">
                     Share Your Second Brain
                 </h2>
                 <p>
@@ -76,7 +83,7 @@ const Share = () => {
                         />
                     }
                 />
-            </div>
+            </motion.div>
         </div>
     );
 };

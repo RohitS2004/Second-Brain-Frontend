@@ -1,4 +1,4 @@
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import Brain from "./assets/icons/Brain";
 import {
     Twitter,
@@ -8,6 +8,7 @@ import {
     Tag,
     User,
     Star,
+    Logout,
 } from "./assets/icons";
 import { Button, Header } from "./components";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +16,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_VERSION } from "../constants/constants";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./features/auth";
+import { login, logout } from "./features/auth";
 
 function App() {
     const isAuthenticated = useSelector(
@@ -29,6 +30,28 @@ function App() {
         
         axios.get(`/${API_VERSION}/user`)
         .then((response) => {
+
+            if (response.status == 408) {
+                // Means the token has expired send a new request to the tokne refresh route
+                axios.post(`/${API_VERSION}/user/refresh-tokens`)
+                .then((response) => {
+                    console.log(response.data);
+
+                    // @ts-ignore
+                    const username = response.data.data.username;
+                    // @ts-ignore
+                    const profilePicture = response.data.data.profilePicture;
+
+                    setUsername(username);
+                    setProfilePicture(profilePicture);
+                    dispatch(login({
+                        isAuthenticated: true,
+                    }))
+                })
+                .catch((error) => {
+                    console.log(error.response.data);
+                })
+            }
             
             // @ts-ignore
             const username = response.data.data.username;
@@ -48,6 +71,21 @@ function App() {
     }, []);
 
     const navigate = useNavigate();
+
+    const handleUserLogout = () => {
+        // Send a request to the logout route and then set the isAuthenticated to false once the user is logged out succesfully
+        axios.post(`/${API_VERSION}/user/signout`)
+        .then((response) => {
+            // Once the user gets logged out successfully then set the isAuthenticated in the store as false
+            console.log(response.data);
+            dispatch(logout({
+                isAutheticated: false
+            }))
+        })
+        .catch((error) => {
+            console.log(error.response.data);
+        })
+    } 
 
     const sidebarItems = [
         {
@@ -143,11 +181,11 @@ function App() {
     ];
 
     return (
-        <div className="max-w-full h-screen relative">
+        <div className="relative h-screen max-w-full">
             <main className="flex min-h-screen">
-                <section className="max-md:w-fit w-1/4 bg-white shadow-2xl shadow-black flex flex-col max-h-screen gap-6">
+                <section className="flex flex-col w-1/4 max-h-screen gap-6 bg-white shadow-2xl max-md:w-fit shadow-black">
                     <header
-                        className="flex items-center gap-2 max-md:justify-center p-2 cursor-pointer"
+                        className="flex items-center gap-2 p-2 cursor-pointer max-md:justify-center"
                         onClick={() => {
                             navigate("/");
                         }}
@@ -158,7 +196,7 @@ function App() {
                             strokeColor="#5046e4"
                             strokeWidth={2}
                         />
-                        <h1 className="font-primary text-2xl max-md:hidden font-semibold">
+                        <h1 className="text-2xl font-semibold font-primary max-md:hidden">
                             Second Brain
                         </h1>
                     </header>
@@ -218,22 +256,35 @@ function App() {
                                 />
                             </div>
                         ) : (
-                            <div className="p-2 w-full flex items-center gap-2 bg-gradient-to-r from-gradientFrom to-gradientTo text-white">
-                                <img
-                                    src={profilePicture}
-                                    alt="user profile picture"
-                                    width={50}
-                                    className="rounded-full aspect-square"
-                                />
-                                <h2 className="text-2xl font-primary max-md:hidden">
-                                    {username}
-                                </h2>
+                            <div className="flex items-center justify-between w-full p-2 text-white bg-gradient-to-r from-gradientFrom to-gradientTo">
+                                <div className="flex items-center gap-2">
+                                    <img
+                                        src={profilePicture}
+                                        alt="user profile picture"
+                                        width={50}
+                                        className="rounded-full aspect-square"
+                                    />
+                                    <h2 className="text-2xl font-primary max-md:hidden">
+                                        {username}
+                                    </h2>
+                                </div>
+                                <div
+                                className="hover:cursor-pointer hover:opacity-50 max-md:hidden"
+                                onClick={handleUserLogout}
+                                >
+                                    <Logout
+                                    width={25}
+                                    height={25}
+                                    strokeColor="#FFF"
+                                    strokeWidth={2}
+                                    />
+                                </div>
                             </div>
                         )}
                     </div>
                 </section>
 
-                <section className="w-3/4 max-md:flex-grow bg-slate-200 max-h-screen flex flex-col gap-6">
+                <section className="flex flex-col w-3/4 max-h-screen gap-6 max-md:flex-grow bg-slate-200">
                     <Header />
                     <Outlet>{/* Content */}</Outlet>
                 </section>
@@ -249,4 +300,7 @@ export default App;
 // set the isAuthenticated
 // inside the store
 
-// Remaining bits: Token Refresh, Logout, Share Brain feature, AI integration and Tags and Link feature too...
+// ! Remaining bits: AI integration...
+
+// Add the profile page, in which the user can update his profile 
+// Add the AI page, in which we can chat with a llm
